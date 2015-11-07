@@ -1,5 +1,6 @@
 package fi.dy.buskr.buskrapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,12 @@ public class StartScreen extends AppCompatActivity {
     private BeaconManager beaconManager;
     private Region region;
 
+    // Artist resolver to find the artist combined with the estimote
+    ArtistResolver artistResolver;
+
+    // EXTRA for the artist variable (to be passed on with the intent)
+    public final static String EXTRA_ARTIST = "fi.dy.buskr.ARTIST";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +43,27 @@ public class StartScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Create artist resolver
+        artistResolver = new ArtistResolver();
+
+        // Create beacon manager to scan for nearby beacons
         beaconManager = new BeaconManager(this);
         beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 if(!list.isEmpty()) {
                     Beacon nearestBeacon = list.get(0);
-                    Log.w(TAG,"Major: " + String.valueOf(nearestBeacon.getMajor()));
-                    //TODO: Navigate to new window with the nearest beacon
+                    int artistId = nearestBeacon.getMajor();
+                    Log.w(TAG, "Major: " + String.valueOf(artistId));
+                    Artist beaconArtist = artistResolver.getArtist(artistId);
+
+                    // continue if artist is null for some reason
+                    if(beaconArtist==null){
+                        return;
+                    }
+
+                    // Create new intent to navigate to the DonateToArtist screen
+                    Intent intent = new Intent(StartScreen.this, DonateToArtistActivity.class);
                 }
             }
         });
