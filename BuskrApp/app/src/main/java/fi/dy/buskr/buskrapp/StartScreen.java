@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
@@ -64,6 +65,8 @@ public class StartScreen extends AppCompatActivity {
 
                     // Create new intent to navigate to the DonateToArtist screen
                     Intent intent = new Intent(StartScreen.this, DonateToArtistActivity.class);
+                    intent.putExtra(EXTRA_ARTIST, beaconArtist);
+                    startActivity(intent);
                 }
             }
         });
