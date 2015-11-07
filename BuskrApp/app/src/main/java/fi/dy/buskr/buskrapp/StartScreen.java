@@ -5,11 +5,29 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.estimote.sdk.Beacon;
+import com.estimote.sdk.BeaconManager;
+import com.estimote.sdk.Region;
+
+import java.util.List;
+import java.util.UUID;
+
 public class StartScreen extends AppCompatActivity {
+    // Public app TAG
+    public static final String TAG = "BuskrApp";
+
+    // Buskr global UUID
+    public static final UUID BUSKER_UUID = UUID.fromString("8EC8B69C-34E3-AC64-7984-7E2538AA7354");
+
+
+    // Private beacon variables
+    private BeaconManager beaconManager;
+    private Region region;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +36,36 @@ public class StartScreen extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        beaconManager = new BeaconManager(this);
+        beaconManager.setRangingListener(new BeaconManager.RangingListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onBeaconsDiscovered(Region region, List<Beacon> list) {
+                if(!list.isEmpty()) {
+                    Beacon nearestBeacon = list.get(0);
+                    Log.w(TAG,"Major: " + String.valueOf(nearestBeacon.getMajor()));
+                    //TODO: Navigate to new window with the nearest beacon
+                }
             }
         });
+
+        region = new Region("Buskr region", BUSKER_UUID, null, null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback(){
+            @Override
+            public void onServiceReady(){
+                beaconManager.startRanging(region);
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        beaconManager.stopRanging(region);
+        super.onPause();
     }
 
     @Override
