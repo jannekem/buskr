@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Buskr</title>
+
+	<style type="text/css">
+		body {
+			background-color: #FFCF50;
+
+			font-family: 'futura';
+			text-align: center;
+		}
+
+		.content {
+			width: 420px;
+			margin: 0 auto;
+		}
+
+		.hiddenstuff {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<h1>Buskr</h1>
+		<p>so demo right now</p>
+
+		<div class="hiddenstuff">
+			<img src="luke.jpg">
+		</div>
+
+		<form
+			action="/action"
+			method="POST"
+			class="klarna-form"
+			data-api-key="test_my_api_key7"
+			data-flow="purchase"
+			data-amount="1"
+			data-locale="en">
+
+			<input type="hidden" name="article_id" value="1">
+		</form>
+	</div>
+</body>
+
+<script async="true" src="https://ondemand-dg.playground.klarna.com/web/js/sdk.min.js"></script>
+<script type="text/javascript">
+	onKlarnaSuccess = function(data) {
+		console.log(data);
+
+		document.querySelector(".hiddenstuff").style.display = "block";
+	};
+</script>
+</html>

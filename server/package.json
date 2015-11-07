@@ -1,0 +1,15 @@
+{
+  "name": "buskr-server",
+  "version": "0.0.3",
+  "description": "a discreet way to pay your favorite street artists",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "junction 2015",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0"
+  }
+}
