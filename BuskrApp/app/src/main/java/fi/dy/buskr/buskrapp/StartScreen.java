@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.UUID;
 import com.android.volley.*;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class StartScreen extends AppCompatActivity {
@@ -80,11 +81,19 @@ public class StartScreen extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     // Send artist info to the donate activity
-                                    Log.w("BuskerApp",response.toString());
-                                    Artist artist = new Artist("James Elliot", "I'm the king of brick lane", "abcdef");
-                                    Intent intent = new Intent(StartScreen.this, donateActivity.class);
-                                    intent.putExtra(EXTRA_ARTIST, artist);
-                                    startActivity(intent);
+                                    Log.w("BuskerApp", response.toString());
+                                    try {
+                                        String artistName = response.getString("name");
+                                        String artistDescription = response.getString("description");
+                                        String artistId = response.getString("userId");
+                                        Artist artist = new Artist(artistName, artistDescription, artistId);
+                                        Intent intent = new Intent(StartScreen.this, donateActivity.class);
+                                        intent.putExtra(EXTRA_ARTIST, artist);
+                                        startActivity(intent);
+                                    }catch (JSONException e){
+                                        e.printStackTrace();
+                                        return;
+                                    }
                                 }
                             },
                             new Response.ErrorListener() {

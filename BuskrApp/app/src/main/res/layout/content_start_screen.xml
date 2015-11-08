@@ -14,7 +14,7 @@
         android:id="@+id/textImage" />
 
 
-    <Button
+ <!--   <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="bypass"
@@ -54,7 +54,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-        android:onClick="enterMap"/>
+        android:onClick="enterMap"/> -->
 
     <ImageView
         android:id="@+id/frontpageAnim"

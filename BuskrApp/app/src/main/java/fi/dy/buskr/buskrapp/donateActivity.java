@@ -23,6 +23,7 @@ import com.klarna.ondemand.RegistrationActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -49,8 +50,15 @@ public class donateActivity extends Activity {
 
         // Receive artist
         artist = (Artist) intent.getSerializableExtra(StartScreen.EXTRA_ARTIST);
+        TextView artistText = (TextView) findViewById(R.id.artistName);
+        artistText.setText(artist.getName());
+        TextView artistDescriptionText = (TextView) findViewById(R.id.artistTag);
+        artistDescriptionText.setText(artist.getDescription());
 
 
+                text = (TextView) findViewById(R.id.donateAmount);
+        String donateAmountText = String.format("%.2f\u20ac", donateAmount);
+        text.setText(donateAmountText);
     }
 
     @Override
@@ -151,9 +159,12 @@ public class donateActivity extends Activity {
         // Create a post request to instruct the backend to perform the purchase.
         // For Genymotion devices, use the following path: http://10.0.3.2:9292/pay.
         // Remember that this expects to work with our sample backend: https://github.com/klarna/sample-ondemand-backend.
-        Log.w("BuskerPerformPurchase",reference);
+        Log.w("BuskerPerformPurchase", reference);
 
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("origin_proof", originProof.toString());
+        jsonObject.put("amount", (int)(100*donateAmount));
+        jsonObject.put("user_token",getUserToken());
 
         // Get the request queue to put request
         RequestQueue queue = MySingleton.getInstance(donateActivity.this.getApplicationContext()).getRequestQueue();
