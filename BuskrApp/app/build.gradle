@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.estimote:sdk:0.9.4@aar'
     compile files('libs/volley.jar')
+    compile 'com.google.android.gms:play-services:8.3.0'
 }

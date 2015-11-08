@@ -1,6 +1,7 @@
 package fi.dy.buskr.buskrapp;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -34,6 +36,10 @@ public class StartScreen extends AppCompatActivity {
     // Private beacon variables
     private BeaconManager beaconManager;
     private Region region;
+
+    // display vars
+    private ImageView view;
+    private AnimationDrawable frameAnimation;
 
     // Artist resolver to find the artist combined with the estimote
     ArtistResolver artistResolver;
@@ -74,7 +80,7 @@ public class StartScreen extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     Log.w("BuskerApp",response.toString());
                                     Artist artist = new Artist("James Elliot", new BankAccountInfo(), "I'm the king of brick lane");
-                                    Intent intent = new Intent(StartScreen.this, DonateToArtistActivity.class);
+                                    Intent intent = new Intent(StartScreen.this, donateActivity.class);
                                     intent.putExtra(EXTRA_ARTIST, artist);
                                     startActivity(intent);
                                 }
@@ -92,6 +98,22 @@ public class StartScreen extends AppCompatActivity {
 
         region = new Region("Buskr region", BUSKER_UUID, null, null);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        view = (ImageView) findViewById(R.id.frontpageAnim);
+        view.setBackgroundResource(R.drawable.animation_list);
+        frameAnimation = (AnimationDrawable) view.getBackground();
+        frameAnimation.start();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setContentView(R.layout.content_start_screen);
+    }
+
 
     @Override
     protected void onResume() {
@@ -131,4 +153,30 @@ public class StartScreen extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void enterSettings(View v) {
+        Intent intent = new Intent(this, settingsActivity.class);
+        startActivity(intent);
+    }
+
+    public void enterMusic(View v) {
+        Intent intent = new Intent(this, musicActivity.class);
+        startActivity(intent);
+    }
+
+    public void enterMap(View v) {
+        Intent intent = new Intent(this, mapActivity.class);
+        startActivity(intent);
+    }
+
+    public void enterDonate() {
+        Intent intent = new Intent(this, donateActivity.class);
+        startActivity(intent);
+    }
+
+    public void bypass(View v) {
+        enterDonate();
+    }
+
+
 }

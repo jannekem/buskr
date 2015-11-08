@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="matt.buskr_v2.donateActivity">
+
+    <TextView android:text="@string/artistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="40dp"
+        android:id="@+id/artistName" />
+
+    <TextView android:text="@string/artistTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/artistName"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:id="@+id/artistTag" />
+
+
+    <ImageView
+        android:id="@+id/buskr1e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="100dp"
+        android:maxHeight="100dp"
+        android:src="@drawable/buskr1e"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="240dp"
+        android:layout_marginLeft="80dp"
+        android:onClick="add"/>
+
+    <ImageView
+        android:id="@+id/buskr2e"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="125dp"
+        android:maxHeight="125dp"
+        android:src="@drawable/buskr2e"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="280dp"
+        android:layout_marginLeft="180dp"
+        android:onClick="add"/>
+
+    <ImageView
+        android:id="@+id/buskr50c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="75dp"
+        android:maxHeight="75dp"
+        android:src="@drawable/buskr50c"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="190dp"
+        android:layout_marginLeft="180dp"
+        android:onClick="add"/>
+
+    <ImageView
+        android:id="@+id/buskrhat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="200dp"
+        android:maxHeight="200dp"
+        android:src="@drawable/buskrhat"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:onClick="enterThanks"/>
+
+<!--    <TextView android:text="@string/donateAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="0dp"
+        android:textSize="40dp"
+        android:id="@+id/donateAmount" />
+-->
+    <TextView android:text="0.00€"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    android:layout_alignLeft="@id/buskrhat"
+    android:layout_alignTop="@id/buskrhat"
+    android:layout_alignRight="@id/buskrhat"
+    android:layout_alignBottom="@id/buskrhat"
+    android:layout_margin="1dp"
+    android:gravity="center"
+        android:textSize="40dp"
+        android:id="@+id/donateAmount"
+        android:textColor="#FFFFFF"/>
+
+</RelativeLayout>

@@ -19,11 +19,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".DonateToArtistActivity"
-            android:label="@string/title_activity_donate_to_artist"
-            android:parentActivityName=".StartScreen"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".donateActivity"
+            android:label="@string/title_activity_donate"
+            android:parentActivityName=".StartScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fi.dy.buskr.buskrapp.StartScreen" />
+        </activity>
+        <activity
+            android:name=".thanksActivity"
+            android:label="@string/title_activity_thanks"
+            android:parentActivityName=".donateActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fi.dy.buskr.buskrapp.donateActivity" />
+        </activity>
+        <activity
+            android:name=".settingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".StartScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fi.dy.buskr.buskrapp.StartScreen" />
+        </activity>
+        <activity
+            android:name=".musicActivity"
+            android:label="@string/title_activity_music"
+            android:parentActivityName=".StartScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="fi.dy.buskr.buskrapp.StartScreen" />
