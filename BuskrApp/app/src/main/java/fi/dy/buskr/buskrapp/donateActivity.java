@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class donateActivity extends Activity {
 
-    public float donateAmount = 0.0f;
+    public double donateAmount = 0.0f;
     private ImageView view;
     private AnimationDrawable frameAnimation;
     private TextView text;
@@ -80,7 +80,8 @@ public class donateActivity extends Activity {
 
     public void updateText() {
         text = (TextView) findViewById(R.id.donateAmount);
-        text.setText(Float.toString(donateAmount));
+        String donateAmountText = String.format("%.2f\u20ac", donateAmount);
+        text.setText(donateAmountText);
     }
 
 

@@ -55,8 +55,8 @@ public class StartScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         // Create artist resolver
         artistResolver = new ArtistResolver();
@@ -78,6 +78,7 @@ public class StartScreen extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
+                                    // Send artist info to the donate activity
                                     Log.w("BuskerApp",response.toString());
                                     Artist artist = new Artist("James Elliot", new BankAccountInfo(), "I'm the king of brick lane");
                                     Intent intent = new Intent(StartScreen.this, donateActivity.class);
