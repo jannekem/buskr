@@ -75,7 +75,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
-        android:onClick="enterThanks"/>
+        android:onClick="checkoutKlarna"/>
 
 <!--    <TextView android:text="@string/donateAmount"
         android:layout_width="wrap_content"

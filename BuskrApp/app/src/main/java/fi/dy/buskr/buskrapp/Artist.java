@@ -9,11 +9,12 @@ public class Artist implements Serializable{
     private String name;
     private BankAccountInfo accountInfo;
     private String description;
+    private String id;
 
-    public Artist(String name, BankAccountInfo info, String description) {
+    public Artist(String name, String description, String id) {
         this.name = name;
-        this.accountInfo = info;
         this.description = description;
+        this.id = id;
     }
 
     public String getName(){
@@ -24,7 +25,5 @@ public class Artist implements Serializable{
         return description;
     }
 
-    public BankAccountInfo getAccountInfo(){
-        return accountInfo;
-    }
+    public String getId() { return id; }
 }

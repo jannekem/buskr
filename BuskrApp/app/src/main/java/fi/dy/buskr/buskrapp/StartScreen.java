@@ -58,6 +58,7 @@ public class StartScreen extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+        com.klarna.ondemand.Context.setApiKey("test_my_api_key11");
         // Create artist resolver
         artistResolver = new ArtistResolver();
 
@@ -80,7 +81,7 @@ public class StartScreen extends AppCompatActivity {
                                 public void onResponse(JSONObject response) {
                                     // Send artist info to the donate activity
                                     Log.w("BuskerApp",response.toString());
-                                    Artist artist = new Artist("James Elliot", new BankAccountInfo(), "I'm the king of brick lane");
+                                    Artist artist = new Artist("James Elliot", "I'm the king of brick lane", "abcdef");
                                     Intent intent = new Intent(StartScreen.this, donateActivity.class);
                                     intent.putExtra(EXTRA_ARTIST, artist);
                                     startActivity(intent);
