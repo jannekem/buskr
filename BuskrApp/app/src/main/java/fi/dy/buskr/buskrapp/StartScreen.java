@@ -12,12 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 
 import java.util.List;
 import java.util.UUID;
+import com.android.volley.*;
+
+import org.json.JSONObject;
 
 public class StartScreen extends AppCompatActivity {
     // Public app TAG
@@ -37,6 +41,10 @@ public class StartScreen extends AppCompatActivity {
     // EXTRA for the artist variable (to be passed on with the intent)
     public final static String EXTRA_ARTIST = "fi.dy.buskr.ARTIST";
 
+    // SERVER ADDRESS
+    public final static String SERVER_ADDRESS = "http://buskr.cfapps.io/user/";
+    //public final static String SERVER_ADDRESS = "http://validate.jsontest.com/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,19 +62,30 @@ public class StartScreen extends AppCompatActivity {
             public void onBeaconsDiscovered(Region region, List<Beacon> list) {
                 if(!list.isEmpty()) {
                     Beacon nearestBeacon = list.get(0);
-                    int artistId = nearestBeacon.getMajor();
-                    Log.w(TAG, "Major: " + String.valueOf(artistId));
-                    Artist beaconArtist = artistResolver.getArtist(artistId);
+                    JSONObject jsonObject = artistResolver.createJSON(nearestBeacon.getMajor(), nearestBeacon.getMinor());
 
-                    // continue if artist is null for some reason
-                    if(beaconArtist==null){
-                        return;
-                    }
+                    // Get the request queue to put request
+                    RequestQueue queue = MySingleton.getInstance(StartScreen.this.getApplicationContext()).getRequestQueue();
 
-                    // Create new intent to navigate to the DonateToArtist screen
-                    Intent intent = new Intent(StartScreen.this, DonateToArtistActivity.class);
-                    intent.putExtra(EXTRA_ARTIST, beaconArtist);
-                    startActivity(intent);
+                    // Create request
+                    JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST,SERVER_ADDRESS,jsonObject,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    Log.w("BuskerApp",response.toString());
+                                    Artist artist = new Artist("James Elliot", new BankAccountInfo(), "I'm the king of brick lane");
+                                    Intent intent = new Intent(StartScreen.this, DonateToArtistActivity.class);
+                                    intent.putExtra(EXTRA_ARTIST, artist);
+                                    startActivity(intent);
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
+                            });
+                    Log.w("BuskerObjectRequest",jsObjRequest.toString());
+                    queue.add(jsObjRequest);
                 }
             }
         });
